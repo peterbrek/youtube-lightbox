@@ -10,28 +10,28 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag)
 // boolean check for iOS devices
 var isiOS = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)/i) != null
 
-var youtubelightbox = document.getElementById('youtubelightbox')
+var youTubeLightBox = document.getElementById('youTubeLightBox')
 var player // variable to hold new YT.Player() instance
 
 // Hide lightbox when clicked on
-youtubelightbox.addEventListener('click', function(){
+youTubeLightBox.addEventListener('click', function(){
 	this.style.display = 'none'
 	player.stopVideo()
 }, false)
 
 // Exclude youtube iframe from above action
-youtubelightbox.querySelector('.centeredchild').addEventListener('click', function(e){
+youTubeLightBox.querySelector('.centeredChild').addEventListener('click', function(e){
 	e.stopPropagation()
 }, false)
 
 
 // define onYouTubeIframeAPIReady() function and initialize lightbox when API is ready
 function onYouTubeIframeAPIReady() {
-	createlightbox()
+	createLightBox()
 }
 
 // Extracts the Youtube video ID from a well formed Youtube URL
-function getyoutubeid(link){
+function getYouTubeId(link){
 	// Assumed Youtube URL formats
 	// https://www.youtube.com/watch?v=Pe0jFDPHkzo
 	// https://youtu.be/Pe0jFDPHkzo
@@ -39,12 +39,12 @@ function getyoutubeid(link){
 	// and more
 
 	//See http://stackoverflow.com/a/6904504/4360074
-	var youtubeidreg = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/i;
-	return youtubeidreg.exec(link)[1] // return Youtube video ID portion of link
+	var youTubeIdReg = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/i;
+	return youTubeIdReg.exec(link)[1] // return Youtube video ID portion of link
 }
 
 // Creates a new YT.Player() instance
-function createyoutubeplayer(videourl){
+function createYouTubePlayer(videourl){
 	player = new YT.Player('player', {
 		videoId: videourl,
 		events: {
@@ -63,15 +63,15 @@ function onPlayerStateChange(event) {
 }
 
 // Main Youtube lightbox function
-function createlightbox(){
+function createLightBox(){
 	var targetlinks = document.querySelectorAll('.lightbox')
 	for (var i=0; i<targetlinks.length; i++){
 		var link = targetlinks[i]
-		link._videoid = getyoutubeid(link) // store youtube video ID portion of link inside _videoid property
+		link._videoid = getYouTubeId(link) // store youtube video ID portion of link inside _videoid property
 		targetlinks[i].addEventListener('click', function(e){
-			youtubelightbox.style.display = 'block'
+			youTubeLightBox.style.display = 'block'
 			if (typeof player == 'undefined'){ // if video player hasn't been created yet
-				createyoutubeplayer(this._videoid)
+				createYouTubePlayer(this._videoid)
 			}
 			else{
 				if (isiOS){ // iOS devices can only use the "cue" related methods
