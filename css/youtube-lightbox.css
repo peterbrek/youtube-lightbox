@@ -9,6 +9,11 @@
     top: 0;
     display: none;
     text-align: center;
+		outline: none;
+		background: rgba(0, 0, 0, 0.9);
+		-webkit-transition: opacity 0.3s ease;
+	  -o-transition: opacity 0.3s ease;
+	  transition: opacity 0.3s ease;
 }
 
 .parent:before {
@@ -21,14 +26,13 @@
 
 .parent:after {
     /* pseudo element to create overlay */
-    background: black;
     content: '';
     position: absolute;
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
-    opacity: 0.5;
+    opacity: 0.9;
     z-index: 10;
 }
 
@@ -42,7 +46,8 @@
     /* higher z-index than overlay */
     display: inline-block;
     vertical-align: middle;
-    width: 80%;
+		width: 100%;
+	  max-width: 964px;
     /* can be any width */
 }
 
@@ -51,10 +56,13 @@
 
 .videowrapper {
     position: relative;
-    padding-top: 25px;
-    padding-bottom: 56.25%;
+    /*padding-top: 25px;*/
+    padding-top: 56.25%;
     /* 16:9 aspect ratio */
-    height: 0;
+		width: 100%;
+		height: 0;
+		overflow: auto;
+	  pointer-events: auto;
 }
 
 
@@ -66,4 +74,7 @@
     left: 0;
     width: 100%;
     height: 100%;
+		-webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+	  box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+	  background: #000;
 }
