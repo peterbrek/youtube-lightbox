@@ -1,12 +1,14 @@
 
 // load Youtube API code asynchronously
 var tag = document.createElement('script')
-
 tag.src = "https://www.youtube.com/iframe_api";
+
+// put Youtube API before the first script tag
 var firstScriptTag = document.getElementsByTagName('script')[0]
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag)
 
-var isiOS = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)/i) != null //boolean check for iOS devices
+// boolean check for iOS devices
+var isiOS = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)/i) != null
 
 var youtubelightbox = document.getElementById('youtubelightbox')
 var player // variable to hold new YT.Player() instance
@@ -43,10 +45,21 @@ function getyoutubeid(link){
 
 // Creates a new YT.Player() instance
 function createyoutubeplayer(videourl){
-	player = new YT.Player('playerdiv', {
+	player = new YT.Player('player', {
 		videoId: videourl,
+		events: {
+				'onStateChange': onPlayerStateChange
+		},
 		playerVars: {autoplay:1}
 	})
+}
+
+function onPlayerStateChange(event) {
+    console.log(event.data);
+
+    if (event.data == 0) {
+        console.log('end!');
+    }
 }
 
 // Main Youtube lightbox function
