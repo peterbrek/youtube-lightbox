@@ -16,6 +16,7 @@
 	  transition: opacity 0.3s ease;
 }
 
+.parent-visible { display: block; }
 .parent:before {
     /* pseudo element to force vertical centering of child element */
     content: '';

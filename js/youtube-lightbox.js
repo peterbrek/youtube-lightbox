@@ -80,6 +80,7 @@ function createLightBox() {
         link._videoid = getYouTubeId(link) // store youtube video ID portion of link inside _videoid property
         targetlinks[i].addEventListener('click', function(e) {
             youTubeLightBox.style.display = 'block'
+						
             if (typeof player == 'undefined') { // if video player hasn't been created yet
                 createYouTubePlayer(this._videoid)
             } else {
